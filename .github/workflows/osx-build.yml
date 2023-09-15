@@ -8,13 +8,24 @@ jobs:
   build:
     runs-on: macos-latest
     steps:
+    # - name: Setup tmate session
+    #   uses: mxschmitt/action-tmate@v3
+    #   with:
+    #     detached: true
     - name: Download zip
       shell: bash
       run: |
         curl -L https://github.com/libusb/libusb/releases/download/v1.0.26/libusb-1.0.26.tar.bz2 -o libusb.tar.bz2
         tar -xjf libusb.tar.bz2
-    - name: Setup upterm session
-      uses: lhotari/action-upterm@v1
+    - name: build
+      shell: bash
+      run: |
+        cd libusb-1.0.26/Xcode
+        xcodebuild -project libusb.xcodeproj -scheme libusb -configuration Release
+        file /Users/runner/Library/Developer/Xcode/DerivedData//libusb-*/Build/Products/Release/libusb-1.0.0.dylib
+        cp /Users/runner/Library/Developer/Xcode/DerivedData//libusb-*/Build/Products/Release/libusb-1.0.0.dylib .
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
       with:
-        limit-access-to-actor: true
-        wait-timeout-minutes: 5
+        name: libusb
+        path: libusb-1.0.26/Xcode/libusb-1.0.0.dylib
