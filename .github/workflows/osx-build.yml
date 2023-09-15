@@ -13,8 +13,5 @@ jobs:
       run: |
         curl -L https://github.com/libusb/libusb/releases/download/v1.0.26/libusb-1.0.26.tar.bz2 -o libusb.tar.bz2
         tar -xjf libusb.tar.bz2
-    - name: Setup upterm session
-      uses: lhotari/action-upterm@v1
-      with:
-        limit-access-to-actor: true
-        wait-timeout-minutes: 4
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
