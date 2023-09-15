@@ -8,10 +8,12 @@ jobs:
   build:
     runs-on: macos-latest
     steps:
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
+      with:
+        detached: true
     - name: Download zip
       shell: bash
       run: |
         curl -L https://github.com/libusb/libusb/releases/download/v1.0.26/libusb-1.0.26.tar.bz2 -o libusb.tar.bz2
         tar -xjf libusb.tar.bz2
-    - name: Setup tmate session
-      uses: mxschmitt/action-tmate@v3
