@@ -17,4 +17,4 @@ jobs:
       uses: lhotari/action-upterm@v1
       with:
         limit-access-to-actor: true
-        wait-timeout-minutes: 5
+        wait-timeout-minutes: 4
